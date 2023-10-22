@@ -1,31 +1,26 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import PlatePreview from '../components/PlatePreview'
 
 export default function Home({ navigation }) {
     return (
         <FlatList
             data={COLOR_PALETTES}
+            style={styles.container}
             keyExtractor={item => item.paletteName}
             renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate('ColorPlatte', item)
-                }}>
-                    <Text style={styles.myText}>{item.paletteName}</Text>
-                </TouchableOpacity>
+                <PlatePreview
+                    handlePress={() => {
+                        navigation.navigate('ColorPlatte', item)
+                    }}
+                    colorPalette={item}
+                />
             )}
 
         />
 
     )
 }
-const styles = StyleSheet.create({
-    myText: {
-        fontSize: 18,
-        paddingHorizontal: 20,
-        paddingVertical: 10
-    }
-});
 const RAINBOW = [
     { colorName: 'Red', hexCode: '#FF0000' },
     { colorName: 'Orange', hexCode: '#FF7F00' },
@@ -66,4 +61,9 @@ const COLOR_PALETTES = [
     { paletteName: 'Rainbow', colors: RAINBOW },
 ];
 
-
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: 'white',
+        paddingHorizontal: 15
+    }
+})
