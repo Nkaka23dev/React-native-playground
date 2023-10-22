@@ -3,7 +3,7 @@ import React from 'react'
 import ColorBoxes from '../components/ColorBoxes'
 
 export default function ColorPalette({ route }) {
-    const { colors, paletteName } = route.params
+    const { paletteName, colors } = route.params
     return (
         <FlatList
             data={colors}
