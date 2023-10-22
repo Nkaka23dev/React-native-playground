@@ -29,7 +29,7 @@ const RAINBOW = [
     { colorName: 'Violet', hexCode: '#8B00FF' },
 ];
 
-const FRONTEND_MASTERS = [
+const THE_GYM = [
     { colorName: 'Red', hexCode: '#c02d28' },
     { colorName: 'Black', hexCode: '#3e3e3e' },
     { colorName: 'Grey', hexCode: '#8a8a8a' },
@@ -57,7 +57,7 @@ const COLORS = [
 
 const COLOR_PALETTES = [
     { paletteName: 'Solarized', colors: COLORS },
-    { paletteName: 'Frontend Masters', colors: FRONTEND_MASTERS },
+    { paletteName: 'The Gym Colors', colors: THE_GYM },
     { paletteName: 'Rainbow', colors: RAINBOW },
 ];
 
