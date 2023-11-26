@@ -1,43 +1,46 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
+import React, {useCallback, useState, useEffect} from 'react'
+import PlatePreview from '../components/PlatePreview'
 
 export default function Home({ navigation }) {
+
+    const [ColorPalette, setColorPalette] = useState([])
+
+    const fetchColorPalatte = useCallback(async () => {
+        const result = await fetch('https://color-palette-api.kadikraman.vercel.app/palettes');
+        if(result.ok){
+            const palettes = await result.json();
+            setColorPalette(palettes)
+        }
+    }, []);
+
+    useEffect(() => {
+      fetchColorPalatte()
+      return () => { 
+      }
+    }, [])
+
     return (
-        <View>
-            <TouchableOpacity onPress={() => {
-                navigation.navigate('ColorPlatte', {
-                    paletteName: 'All Colors',
-                    colors: COLORS
-                })
-            }}>
-                <Text style={styles.myText}>See All Colors</Text>
-            </TouchableOpacity>
-        </View>
+        <FlatList
+            data={ColorPalette}
+            style={styles.container}
+            keyExtractor={item => item.paletteName}
+            renderItem={({ item }) => (
+                <PlatePreview
+                    handlePress={() => {
+                        navigation.navigate('ColorPlatte', item)
+                    }}
+                    colorPalette={item}
+                />
+            )}
+
+        />
+
     )
 }
 const styles = StyleSheet.create({
-    myText: {
-        fontSize: 18,
-        padding: 20
+    container: {
+        backgroundColor: 'white',
+        paddingHorizontal: 15
     }
-});
-
-export const COLORS = [
-    { colorName: 'Base03', hexCode: '#002b36' },
-    { colorName: 'Base02', hexCode: '#073642' },
-    { colorName: 'Base01', hexCode: '#586e75' },
-    { colorName: 'Base00', hexCode: '#657b83' },
-    { colorName: 'Base0', hexCode: '#839496' },
-    { colorName: 'Base1', hexCode: '#93a1a1' },
-    { colorName: 'Base2', hexCode: '#eee8d5' },
-    { colorName: 'Base3', hexCode: '#fdf6e3' },
-    { colorName: 'Yellow', hexCode: '#b58900' },
-    { colorName: 'Orange', hexCode: '#cb4b16' },
-    { colorName: 'Red', hexCode: '#dc322f' },
-    { colorName: 'Magenta', hexCode: '#d33682' },
-    { colorName: 'Violet', hexCode: '#6c71c4' },
-    { colorName: 'Blue', hexCode: '#268bd2' },
-    { colorName: 'Cyan', hexCode: '#2aa198' },
-    { colorName: 'Green', hexCode: '#859900' },
-];
+})
