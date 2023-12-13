@@ -1,30 +1,20 @@
-import { View, Text, SafeAreaView, StyleSheet} from 'react-native'
 import React from 'react'
-import ColorBox from './components/ColorBox'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomePage from './screens/HomePage';
+import MyPalette from './screens/MyPalette';
 
 
 export default function App() {
+  const Stack = createStackNavigator()
   return (
-   <SafeAreaView >
-    <View >
-      <Text style={styles.titleStyle}>Here are some boxes of different colors</Text>
-    </View>
-   <View style={[{marginTop:10}]}>
-     <ColorBox colorName="cyan" hexCode="#2aa198" />
-     <ColorBox colorName="Blue" hexCode="#268bd2" />
-     <ColorBox colorName="Magenta" hexCode="#d33682" />
-     <ColorBox colorName="Orange" hexCode="#cb4b16" />
-     </View>
-   </SafeAreaView>
+  <NavigationContainer>
+    <Stack.Navigator>
+     <Stack.Screen name='HomePage' component={HomePage}/>
+     <Stack.Screen name = 'ColorPlatte'component={MyPalette} />
+    </Stack.Navigator>
+  </NavigationContainer>
   )
 }
 
-const styles = StyleSheet.create({
-  titleStyle: {
-      marginTop: 50,
-      marginHorizontal:20, 
-      fontWeight: 'bold',
-      fontSize: 16,
-    
-  }
-}) 
+   
