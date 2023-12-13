@@ -5,9 +5,13 @@ export default function ColorBox({colorName, hexCode}) {
   const boxColor = {
     backgroundColor: hexCode
   }
+ 
+  const textColor = {
+    color: parseInt(hexCode.replace('#', ''), 16) > 0xffffff / 1.1?'black':'white'
+  }
   return (
     <View style={[styles.container1,boxColor]}>
-    <Text style={styles.text}>{colorName}: {hexCode}</Text>
+    <Text style={[styles.text, textColor]}>{colorName}: {hexCode}</Text>
    </View>
   )
 }
