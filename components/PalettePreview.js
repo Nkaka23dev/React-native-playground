@@ -4,9 +4,8 @@ import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 
 
 export default function PalettePreview({handlePress, item}) {
-console.log(item.colors.slice(0,5), "hhdhdh")
   return (
-    <View>
+    <View >
      <TouchableOpacity onPress={handlePress}>
         <Text style={styles.titleStyle}>{item.paletteName}</Text>
         <FlatList
