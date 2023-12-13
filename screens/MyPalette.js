@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
         marginHorizontal:20, 
         fontWeight: 'bold',
         fontSize: 16,
-      
+        shadowColor: '#000',
+        shadowOffset: {height:1, width:0},
+        shadowOpacity: 0.3,
+        shadowRadius: 2
     }
   }) 
