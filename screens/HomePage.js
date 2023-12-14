@@ -1,9 +1,11 @@
-import { View, Text} from 'react-native'
+import { View, Text, TouchableOpacity} from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native-gesture-handler';
 import PalettePreview from '../components/PalettePreview';
 
-export default function HomePage({ navigation }) {
+export default function HomePage({ navigation, route }) {
+  const newColorPalatte = route.params? route.params.newColorPalatte: undefined;
+
   const [allPalette, setAllPalette] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -16,14 +18,21 @@ export default function HomePage({ navigation }) {
   }, [])
   
   useEffect(() => {
-   getAllColorPalette()
+    getAllColorPalette()
   }, [])
     
   const  handleIsRefleshing = useCallback(async () => {
    setIsRefreshing(true)
-   await getAllColorPalette()
+   await getAllColorPalette();
    setIsRefreshing(false)
   }, [])
+
+  useEffect(() => {
+   if(newColorPalatte){
+    setAllPalette(palette => [newColorPalatte, ...palette])
+   }
+  }, [newColorPalatte])
+
   return (
     <View style={{flex:1}}>
       <View style={{flex:1}}>
@@ -41,7 +50,10 @@ export default function HomePage({ navigation }) {
         ListEmptyComponent={ <View style={{ alignItems:'center', justifyContent:'center',marginTop: 20, flex:1}}>
         <Text style={{fontSize: 20, fontWeight: 'bold'}} >Not data found</Text>
        </View>}
-      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleIsRefleshing} />}
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleIsRefleshing} />}
+        ListHeaderComponent={<TouchableOpacity onPress={() => navigation.navigate('ColorPaletteModal')}>
+          <Text style={{fontSize: 20, fontWeight: 'bold',paddingHorizontal: 20, marginTop: 20, color:'green'}}>Add Color Palette</Text>
+        </TouchableOpacity>}
       />
       </View>
     </View>
