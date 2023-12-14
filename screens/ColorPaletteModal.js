@@ -46,10 +46,9 @@ export default function ColorPaletteModal({navigation}) {
         }
         navigation.navigate('Home', {newColorPalatte})
       }
-    }, [name])
+    }, [name, isSelected])
  
     const handleValueChange = (value, color) => {
-      console.log(value, "and the color", color)
       if(value === true){
         setIsSelected(colors => [...colors, color])
       }else{
@@ -75,7 +74,7 @@ export default function ColorPaletteModal({navigation}) {
        <Text style={{fontSize: 16,  fontWeight: '600'}}>{item.colorName}</Text>
       <Switch
        value={!!isSelected.find((color) => color.colorName === item.colorName)}
-       onValueChange={(selected) => {handleValueChange(selected,item)}}
+       onValueChange={(selected) => {handleValueChange(selected, item)}}
      />
       </View>}
       />
